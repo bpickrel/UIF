@@ -522,9 +522,13 @@ To set up the YModel for GPUs:
 2. Build a `*.mxr` file with a compile option: 
 
 ```
-	migraphx-driver compile file.onnx --enable-offload-copy --gpu --binary -o file.mxr
+	migraphx-driver compile file.onnx --enable-offload-copy --gpu --binary -o file_b1.mxr --batch 1
 	
 ```
+
+  **Note:** MIGraphX performance tuning depends heavily on batch size, and each compiled `*.mxr` file has a characteristic batch size.  UIF's MIGraphX component, or worker, expects a naming convention in which the model file name is of the form     `<modelname>_bXX.mxr`
+where XX is the batch size.  If you import `*.mxr` files that do not follow this rule, rename them with the <b>_bXX</b> suffix before using them for inference.
+
 
 3. Run the (Python) program with a command line: 
 
